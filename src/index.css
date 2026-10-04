@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-canvas: #fbf9f4;
+  --color-brand-navy: #2d231b;
+  --color-brand-navyHover: #1f1711;
+  --color-brand-slate: #4a3e35;
+  --color-brand-muted: #7d6e61;
+
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f5f0e6;
+  --color-surface-border: #e7decb;
+
+  --color-caramel: #b46b2b;
+  --color-caramel-hover: #9c5921;
+  --color-caramel-subtle: #fdf5eb;
+  --color-caramel-border: #f2cb9b;
+
+  --color-accent-emerald: #2e7d48;
+  --color-accent-emeraldBg: #eff7f1;
+  --color-accent-emeraldBorder: #b9e3c5;
+  --color-accent-amber: #c47820;
+  --color-accent-amberBg: #fdf7ed;
+  --color-accent-rose: #c93b3b;
+  --color-accent-roseBg: #fdf2f2;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  :root {
+    --color-primary: #b46b2b;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  *, *::before, *::after {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    background-color: #fbf9f4;
+    color: #2d231b;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    letter-spacing: -0.02em;
+    color: #2d231b;
+  }
+
+  p, span, a, label, button, input, select, textarea {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  html.dark body,
+  .dark body {
+    background-color: #1a1512;
+    color: #f6efe6;
+  }
+}
+
+/* Bulletproof Light/Dark Utility Mappings that prevent any invisible text */
+.bg-canvas {
+  background-color: #fbf9f4 !important;
+}
+html.dark .bg-canvas,
+.dark .bg-canvas {
+  background-color: #1a1512 !important;
+}
+
+.bg-surface {
+  background-color: #ffffff !important;
+}
+html.dark .bg-surface,
+.dark .bg-surface {
+  background-color: #251f1a !important;
+}
+
+.bg-surface-subtle {
+  background-color: #f5f0e6 !important;
+}
+html.dark .bg-surface-subtle,
+.dark .bg-surface-subtle {
+  background-color: #302821 !important;
+}
+
+.border-surface-border {
+  border-color: #e7decb !important;
+}
+html.dark .border-surface-border,
+.dark .border-surface-border {
+  border-color: #42372e !important;
+}
+
+.text-brand-navy {
+  color: #2d231b !important;
+}
+html.dark .text-brand-navy,
+.dark .text-brand-navy {
+  color: #f6efe6 !important;
+}
+
+.text-brand-slate {
+  color: #4a3e35 !important;
+}
+html.dark .text-brand-slate,
+.dark .text-brand-slate {
+  color: #dfd4c5 !important;
+}
+
+.text-brand-muted {
+  color: #7d6e61 !important;
+}
+html.dark .text-brand-muted,
+.dark .text-brand-muted {
+  color: #aa9c8e !important;
+}
+
+/* Custom scrollbars hidden */
+::-webkit-scrollbar {
+  display: none;
+}
+
+@layer components {
+  /* Surface Cards matching user design */
+  .card {
+    background: #ffffff;
+    border: 1px solid #e7decb;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px 0 rgba(74, 62, 53, 0.05);
+    color: #4a3e35;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html.dark .card,
+  .dark .card {
+    background: #251f1a;
+    border: 1px solid #42372e;
+    color: #f6efe6;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* Primary Caramel Button */
+  .btn-primary {
+    background-color: #b46b2b;
+    color: #ffffff !important;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 1px 2px 0 rgba(180, 107, 43, 0.25);
+    transition: all 0.18s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+  }
+
+  .btn-primary:hover {
+    background-color: #9c5921;
+    box-shadow: 0 3px 8px 0 rgba(180, 107, 43, 0.35);
+  }
+
+  .btn-primary:active {
+    background-color: #7f4616;
+    transform: scale(0.98);
+  }
+
+  html.dark .btn-primary,
+  .dark .btn-primary {
+    background-color: #c97e3c;
+    color: #ffffff !important;
+    box-shadow: 0 1px 3px 0 rgba(201, 126, 60, 0.35);
+  }
+  html.dark .btn-primary:hover,
+  .dark .btn-primary:hover {
+    background-color: #b46b2b;
+  }
+  html.dark .btn-primary:active,
+  .dark .btn-primary:active {
+    background-color: #9c5921;
+  }
+
+  /* Secondary White / Beige Button */
+  .btn-secondary {
+    background-color: #ffffff;
+    border: 1px solid #e7decb;
+    color: #2d231b;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.625rem;
+    transition: all 0.18s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+  }
+
+  .btn-secondary:hover {
+    background-color: #f5f0e6;
+  }
+
+  html.dark .btn-secondary,
+  .dark .btn-secondary {
+    background-color: #302821;
+    border-color: #42372e;
+    color: #f6efe6;
+  }
+  html.dark .btn-secondary:hover,
+  .dark .btn-secondary:hover {
+    background-color: #3b322a;
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #e7decb;
+    color: #2d231b;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.625rem;
+    transition: all 0.18s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+  }
+
+  .btn-outline:hover {
+    background: #f5f0e6;
+  }
+
+  html.dark .btn-outline,
+  .dark .btn-outline {
+    border-color: #42372e;
+    color: #f6efe6;
+  }
+
+  /* Standard Input field */
+  .input-field {
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    border-radius: 0.625rem;
+    border: 1px solid #e7decb;
+    background: #ffffff;
+    color: #2d231b;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .input-field::placeholder {
+    color: #aa9c8e;
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: #b46b2b;
+    box-shadow: 0 0 0 1px #b46b2b;
+  }
+
+  html.dark .input-field,
+  .dark .input-field {
+    background: #251f1a;
+    border-color: #42372e;
+    color: #f6efe6;
+  }
+
+  html.dark .input-field:focus,
+  .dark .input-field:focus {
+    border-color: #c97e3c;
+    box-shadow: 0 0 0 1px #c97e3c;
+  }
+}
