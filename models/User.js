@@ -2,23 +2,56 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
-        name: { type: String,required: true,trim: true },
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
 
-        email: {type: String,required: true,unique: true,lowercase: true,trim: true},
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
+        },
 
-        password: { type: String,required: true,minlength: 6 },
+        password: {
+            type: String,
+            required: true,
+            minlength: 6,
+        },
 
-        isVerified: { type: Boolean,default: false, required: true},
+        department: {
+            type: String,
+            default: "",
+            trim: true,
+        },
 
-        emailOTP: { type: String,  default: null,   required: true},
+        year: {
+            type: Number,
+            default: null,
+        },
 
-        department: { type: String,  default: null,   required: true},
-        
-        academic_year: { type: String,  default: null,   required: true},
+        skills: {
+            type: [String],
+            default: [],
+        },
 
-        skills: { type: [String], default: [] },
+        isVerified: {
+            type: Boolean,
+            default: false,
+        },
 
-        emailOTPExpires: { type: Date, default: null }
+        emailOTP: {
+            type: String,
+            default: null,
+        },
+
+        emailOTPExpires: {
+            type: Date,
+            default: null,
+        },
     },
     {
         timestamps: true,

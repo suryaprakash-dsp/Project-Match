@@ -7,7 +7,8 @@ import sendEmail from "../utils/sendEmail.js";
 // REGISTER
 export const register = async (req, res) => {
     try {
-        const { name, email, password ,department, academic_year, skills} = req.body;
+        const { name,email, password,department, year,skills,} = req.body;
+
 
         if (!name || !email || !password) {
             return res.status(400).json({
@@ -36,16 +37,16 @@ export const register = async (req, res) => {
         );
 
         const user = await User.create({
-            name,
-            email,
-            password: hashedPassword,
-            isVerified: false,
-            emailOTP: otp,
-            emailOTPExpires: otpExpiry,
-            department: department,
-            academic_year: academic_year,
-            skills: skills
-        });
+    name,
+    email,
+    password: hashedPassword,
+    department: department,
+    year: year,
+    skills: skills,
+    isVerified: false,
+    emailOTP: otp,
+    emailOTPExpires: otpExpiry,
+});
 
         // Send only OTP
         await sendEmail({
@@ -146,6 +147,76 @@ export const verifyEmailOTP = async (req, res) => {
         console.error("VERIFY OTP ERROR:", error);
 
         res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
+
+// LOGIN
+export const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Check required fields
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are required",
+            });
+        }
+
+        // Find user
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password",
+            });
+        }
+
+        // Check email verification
+        if (!user.isVerified) {
+            return res.status(403).json({
+                success: false,
+                message: "Please verify your email before login",
+            });
+        }
+
+        // Check password
+        const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (!isPasswordCorrect) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password",
+            });
+        }
+
+        // Generate JWT
+        const token = generateToken(user._id);
+
+        // Login successful
+        return res.status(200).json({
+            success: true,
+            message: "Login successful",
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                isVerified: user.isVerified,
+            },
+        });
+
+    } catch (error) {
+        console.error("LOGIN ERROR:", error);
+
+        return res.status(500).json({
             success: false,
             message: "Server error",
         });
